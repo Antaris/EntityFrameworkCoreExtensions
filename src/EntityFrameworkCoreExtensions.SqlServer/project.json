@@ -1,0 +1,32 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Provides hooks and extensions for the Entity Framework Core project with SQL Server",
+  "packOptions": {
+    "tags": [
+      "Entity Framework Core Extensions",
+      "Entity Framework Core",
+      "entity-framework-core-extensions",
+      "entity-framework-core",
+      "ef-extensions",
+      "ef",
+      "Data",
+      "O/RM",
+      "SQL Server"
+    ]
+  },
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "xmlDoc": true,
+    "compile": {
+      "include": "../Shared/*.cs"
+    }
+  },
+  "dependencies": {
+    "EntityFrameworkCoreExtensions": { "target": "project" },
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1"
+  },
+  "frameworks": {
+    "net451": {},
+    "netstandard1.3": {}
+  }
+}
