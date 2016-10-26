@@ -66,7 +66,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
         {
             // Arrange
             var memberMapper = new MemberMapper(new FieldMatcher());
-            var entityType = new Model().AddEntityType("Test");
+            var entityType = new Model().AddEntityType(typeof(Product));
             var hook = new VerificationEntityMaterializeSourceHook();
             var hooks = new IEntityMaterializerSourceHook[] { hook };
             var source = new ExtendedEntityMaterializerSource(memberMapper, hooks);
@@ -84,6 +84,10 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
             => Expression.Lambda<Func<ValueBuffer, object>>(
                 source.CreateMaterializeExpression(entityType, _readerParameter),
                 _readerParameter).Compile();
+
+        private class Product
+        {
+        }
 
         private class VerificationEntityMaterializeSourceHook : EntityMaterializerSourceHook
         {
