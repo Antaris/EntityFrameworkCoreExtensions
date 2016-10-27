@@ -26,9 +26,9 @@ namespace EntityFrameworkCoreExtensions.Builder
         /// Initialises a new instance of <see cref="ModelBuilderService"/>
         /// </summary>
         /// <param name="builders">The set of model builders.</param>
-        public ModelBuilderService(IModelBuilder[] builders)
+        public ModelBuilderService(IEnumerable<IModelBuilder> builders)
         {
-            _builders = Ensure.NotNull(builders, nameof(builders));
+            _builders = Ensure.NotNull(builders, nameof(builders)).ToArray();
         }
 
         /// <inheritdoc />
