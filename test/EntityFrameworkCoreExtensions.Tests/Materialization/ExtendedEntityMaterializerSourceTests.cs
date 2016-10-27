@@ -34,7 +34,11 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
         {
             // Arrange
             var memberMapper = new MemberMapper(new FieldMatcher());
-            var hook = new VerificationEntityMaterializeSourceHook();
+            var testExpression = Expression.Constant(1);
+            var hook = new TestEntityMaterializeSourceHook()
+            {
+                TestExpression = testExpression
+            };
             var hooks = new IEntityMaterializerSourceHook[] { hook };
             var source = new ExtendedEntityMaterializerSource(memberMapper, hooks);
 
@@ -43,6 +47,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
 
             // Assert
             Assert.Equal(true, hook.CreateReadValueCallExpressionCalled);
+            Assert.Equal(testExpression, expression);
         }
 
         [Fact]
@@ -50,7 +55,11 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
         {
             // Arrange
             var memberMapper = new MemberMapper(new FieldMatcher());
-            var hook = new VerificationEntityMaterializeSourceHook();
+            var testExpression = Expression.Constant(1);
+            var hook = new TestEntityMaterializeSourceHook()
+            {
+                TestExpression = testExpression
+            };
             var hooks = new IEntityMaterializerSourceHook[] { hook };
             var source = new ExtendedEntityMaterializerSource(memberMapper, hooks);
 
@@ -59,6 +68,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
 
             // Assert
             Assert.Equal(true, hook.CreateReadValueExpressionCalled);
+            Assert.Equal(testExpression, expression);
         }
 
         [Fact]
@@ -67,7 +77,11 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
             // Arrange
             var memberMapper = new MemberMapper(new FieldMatcher());
             var entityType = new Model().AddEntityType(typeof(Product));
-            var hook = new VerificationEntityMaterializeSourceHook();
+            var testExpression = Expression.Constant(1);
+            var hook = new TestEntityMaterializeSourceHook()
+            {
+                TestExpression = testExpression
+            };
             var hooks = new IEntityMaterializerSourceHook[] { hook };
             var source = new ExtendedEntityMaterializerSource(memberMapper, hooks);
 
@@ -76,6 +90,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
 
             // Assert
             Assert.Equal(true, hook.CreateMaterializeExpressionCalled);
+            Assert.Equal(testExpression, expression);
         }
 
         private static readonly ParameterExpression _readerParameter = Expression.Parameter(typeof(ValueBuffer), "valueBuffer");
@@ -89,15 +104,17 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
         {
         }
 
-        private class VerificationEntityMaterializeSourceHook : EntityMaterializerSourceHook
+        private class TestEntityMaterializeSourceHook : EntityMaterializerSourceHook
         {
+            public Expression TestExpression { get; set; }
+
             public bool CreateMaterializeExpressionCalled { get; private set; }
 
             public override Expression CreateMaterializeExpression(IEntityType entityType, Expression valueBuffer, int[] indexMap, Func<IEntityType, Expression, int[], Expression> defaultFactory)
             {
                 CreateMaterializeExpressionCalled = true;
 
-                return null;
+                return TestExpression;
             }
 
             public bool CreateReadValueCallExpressionCalled { get; private set; }
@@ -106,7 +123,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
             {
                 CreateReadValueCallExpressionCalled = true;
 
-                return null;
+                return TestExpression;
             }
 
             public bool CreateReadValueExpressionCalled { get; private set; }
@@ -115,7 +132,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
             {
                 CreateReadValueExpressionCalled = true;
 
-                return null;
+                return TestExpression;
             }
         }
     }
