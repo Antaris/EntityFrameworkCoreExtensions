@@ -20,7 +20,7 @@ namespace AutoModelSample
                 .AddEntityFrameworkInMemoryDatabase()
                 .AddDbContext<CatalogDbContext>(options => options.UseInMemoryDatabase())
                 .AddEntityFrameworkCoreExtensions(b => b
-                    .AddModelBuildersFromAssembly(typeof(Program).GetTypeInfo().Assembly)
+                    .AddModelBuildersFromAssemblies(typeof(Program).GetTypeInfo().Assembly)
                     .AddAutoModel()
                 );
             var provider = services.BuildServiceProvider();

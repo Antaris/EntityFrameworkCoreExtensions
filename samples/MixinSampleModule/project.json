@@ -1,0 +1,11 @@
+﻿{
+  "version": "1.0.0-*",
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore": "1.0.1",
+    "EntityFrameworkCoreExtensions": { "target": "project" }
+  },
+  "frameworks": {
+    "net451": { },
+    "netstandard1.3": { }
+  }
+}

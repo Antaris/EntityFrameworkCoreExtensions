@@ -7,6 +7,8 @@ namespace EntityFrameworkCoreExtensions
     using Microsoft.Extensions.DependencyInjection;
 
     using EntityFrameworkCoreExtensions.Builder;
+    using EntityFrameworkCoreExtensions.ChangeTracking;
+    using EntityFrameworkCoreExtensions.Mixins;
 
     /// <summary>
     /// A builder utility for applying service descriptors to a service collection.
@@ -42,27 +44,44 @@ namespace EntityFrameworkCoreExtensions
         }
 
         /// <summary>
-        /// Adds the model builders from the given assembly.
+        /// Adds the mixins feature to the services collection.
         /// </summary>
-        /// <param name="assembly">The assembly instance.</param>
         /// <returns>The service builder.</returns>
-        public ExtensionsServicesBuilder AddModelBuildersFromAssembly(Assembly assembly)
+        public ExtensionsServicesBuilder AddMixins()
         {
-            Ensure.NotNull(assembly, nameof(assembly));
+            _services.AddScoped<IChangeDetectorHook, MixinChangeDetectorHook>();
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the model builders from the given assemblies.
+        /// </summary>
+        /// <param name="assemblies">The assembly instance.</param>
+        /// <returns>The service builder.</returns>
+        public ExtensionsServicesBuilder AddModelBuildersFromAssemblies(params Assembly[] assemblies)
+        {
+            if (assemblies == null || assemblies.Length == 0)
+            {
+                return this;
+            }
 
             var modelBuilderInterfaceType = typeof(IModelBuilder);
 
-            var modelBuilderTypes = assembly.GetExportedTypes()
-                .Select(t => t.GetTypeInfo())
-                .Where(
-                    ti => !ti.IsAbstract
-                          && ti.IsClass
-                          && ti.IsPublic
-                          && ti.ImplementedInterfaces.Any(i => modelBuilderInterfaceType.Equals(i)));
-
-            foreach (var modelBuilderType in modelBuilderTypes)
+            foreach (var assembly in assemblies)
             {
-                _services.AddSingleton(modelBuilderInterfaceType, modelBuilderType.AsType());
+                var modelBuilderTypes = assembly.GetExportedTypes()
+                    .Select(t => t.GetTypeInfo())
+                    .Where(
+                        ti => !ti.IsAbstract
+                              && ti.IsClass
+                              && ti.IsPublic
+                              && ti.ImplementedInterfaces.Any(i => modelBuilderInterfaceType.Equals(i)));
+
+                foreach (var modelBuilderType in modelBuilderTypes)
+                {
+                    _services.AddSingleton(modelBuilderInterfaceType, modelBuilderType.AsType());
+                }
             }
 
             return this;

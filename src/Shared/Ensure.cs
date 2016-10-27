@@ -28,5 +28,22 @@ namespace EntityFrameworkCoreExtensions
 
             return value;
         }
+
+        /// <summary>
+        /// Ensures the given string value is not null or empty.
+        /// </summary>
+        /// <param name="value">The parameter value</param>
+        /// <param name="parameterName">The parameter name</param>
+        /// <exception cref="ArgumentException">If the given argument is null or empty.</exception>
+        /// <returns>The parameter value</returns>
+        public static string NotNullOrEmpty(string value, string parameterName)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("The value cannot be null or empty.", parameterName);
+            }
+
+            return value;
+        }
     }
 }
