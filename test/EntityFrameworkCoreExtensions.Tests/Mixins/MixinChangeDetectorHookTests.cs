@@ -35,9 +35,12 @@ namespace EntityFrameworkCoreExtensions.Tests.Mixins
             {
                 base.OnModelCreating(modelBuilder);
 
-                var entityBuilder = modelBuilder.Entity<Product>()
-                    .HasKey(p => p.Id);
+                var entityBuilder = modelBuilder.Entity<Product>();
+                entityBuilder.HasKey(p => p.Id);
 
+                var mixinBuilder = entityBuilder.Mixin<Option>();
+                mixinBuilder.Property(p => p.Name).HasMaxLength(200);
+                mixinBuilder.Property(p => p.Cost).HasDefaultValue(100);
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82F9EB8C-5411-4A9A-A931-689511E3F4B4}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{CAC9BF80-1225-40B5-9003-A4F1118D70A0}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AutoModelSample", "samples\AutoModelSample\AutoModelSample.xproj", "{01FA892D-A79F-42B7-84FB-F85A34A5AD1F}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MixinSampleModule", "samples\MixinSampleModule\MixinSampleModule.xproj", "{A0443B47-9D62-4797-BE0F-BDDFAFEF612D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MixinSample", "samples\MixinSample\MixinSample.xproj", "{142DE1A3-FB48-4B72-938F-45C13F0A5852}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{01FA892D-A79F-42B7-84FB-F85A34A5AD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01FA892D-A79F-42B7-84FB-F85A34A5AD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01FA892D-A79F-42B7-84FB-F85A34A5AD1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0443B47-9D62-4797-BE0F-BDDFAFEF612D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0443B47-9D62-4797-BE0F-BDDFAFEF612D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0443B47-9D62-4797-BE0F-BDDFAFEF612D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0443B47-9D62-4797-BE0F-BDDFAFEF612D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{142DE1A3-FB48-4B72-938F-45C13F0A5852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142DE1A3-FB48-4B72-938F-45C13F0A5852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142DE1A3-FB48-4B72-938F-45C13F0A5852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142DE1A3-FB48-4B72-938F-45C13F0A5852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +74,7 @@ Global
 		{75775E1F-1B75-40F0-A5EF-6F1CFDAAB5EB} = {82F9EB8C-5411-4A9A-A931-689511E3F4B4}
 		{95A0954B-D79E-4944-9A39-8D7F03EFBB43} = {CFFFD37C-21AA-482E-A31C-4F7E7FB36BD1}
 		{01FA892D-A79F-42B7-84FB-F85A34A5AD1F} = {CAC9BF80-1225-40B5-9003-A4F1118D70A0}
+		{A0443B47-9D62-4797-BE0F-BDDFAFEF612D} = {CAC9BF80-1225-40B5-9003-A4F1118D70A0}
+		{142DE1A3-FB48-4B72-938F-45C13F0A5852} = {CAC9BF80-1225-40B5-9003-A4F1118D70A0}
 	EndGlobalSection
 EndGlobal
