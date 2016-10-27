@@ -8,7 +8,7 @@ namespace EntityFrameworkCoreExtensions.Storage
     /// <summary>
     /// Provides a base implementation of a relational type mapper hook.
     /// </summary>
-    public abstract class RelationalTypeMapperHook : IRelationalTypeMapperHook
+    public abstract class RelationalTypeMapperHookBase : IRelationalTypeMapperHook
     {
         /// <inheritdoc />
         public virtual RelationalTypeMapping FindMapping(IProperty property)

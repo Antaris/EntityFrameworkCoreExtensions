@@ -8,7 +8,7 @@ namespace EntityFrameworkCoreExtensions.ChangeTracking
     /// <summary>
     /// Provides a base implementation of a <see cref="IChangeDetectorHook"/>.
     /// </summary>
-    public abstract class ChangeDetectorHook : IChangeDetectorHook
+    public abstract class ChangeDetectorHookBase : IChangeDetectorHook
     {
         /// <inheritdoc />
         public virtual void DetectedChanges(IChangeDetector changeDetector, IStateManager stateManager)

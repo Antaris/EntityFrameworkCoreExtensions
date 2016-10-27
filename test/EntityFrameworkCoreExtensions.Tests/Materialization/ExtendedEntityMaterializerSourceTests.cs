@@ -104,7 +104,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Materialization
         {
         }
 
-        private class TestEntityMaterializeSourceHook : EntityMaterializerSourceHook
+        private class TestEntityMaterializeSourceHook : EntityMaterializerSourceHookBase
         {
             public Expression TestExpression { get; set; }
 

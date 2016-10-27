@@ -68,7 +68,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Storage
 
         }
 
-        private class TestRelationalTypeMapperHook : RelationalTypeMapperHook
+        private class TestRelationalTypeMapperHook : RelationalTypeMapperHookBase
         {
             private readonly RelationalTypeMapping _customType
                 = new RelationalTypeMapping("varchar(100)", typeof(CustomType), dbType: DbType.String, unicode: false, size: 100);

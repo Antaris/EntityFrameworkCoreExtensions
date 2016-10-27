@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3144AA51-6920-42FE-8FCF-515292CCBF7C}"
 	ProjectSection(SolutionItems) = preProject
 		src\Shared\Ensure.cs = src\Shared\Ensure.cs
+		src\Shared\TaskCache.cs = src\Shared\TaskCache.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CFFFD37C-21AA-482E-A31C-4F7E7FB36BD1}"

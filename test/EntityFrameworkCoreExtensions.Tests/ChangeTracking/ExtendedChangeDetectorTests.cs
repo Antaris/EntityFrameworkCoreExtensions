@@ -54,7 +54,7 @@ namespace EntityFrameworkCoreExtensions.Tests.ChangeTracking
             }
         }
 
-        private class TestChangeDetectorHook : ChangeDetectorHook
+        private class TestChangeDetectorHook : ChangeDetectorHookBase
         {
             public bool DetectedChangesCalled { get; private set; }
 

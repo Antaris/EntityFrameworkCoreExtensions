@@ -9,7 +9,7 @@ namespace EntityFrameworkCoreExtensions.Materialization
     /// <summary>
     /// Provides a base implementation of a <see cref="IEntityMaterializerSourceHook"/>.
     /// </summary>
-    public class EntityMaterializerSourceHook : IEntityMaterializerSourceHook
+    public class EntityMaterializerSourceHookBase : IEntityMaterializerSourceHook
     {
         /// <inheritdoc />
         public virtual Expression CreateMaterializeExpression(IEntityType entityType, Expression valueBuffer, int[] indexMap, Func<IEntityType, Expression, int[], Expression> defaultFactory)
