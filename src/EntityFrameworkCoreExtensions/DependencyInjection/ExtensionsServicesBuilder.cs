@@ -8,7 +8,9 @@ namespace EntityFrameworkCoreExtensions
 
     using EntityFrameworkCoreExtensions.Builder;
     using EntityFrameworkCoreExtensions.ChangeTracking;
+    using EntityFrameworkCoreExtensions.Materialization;
     using EntityFrameworkCoreExtensions.Mixins;
+    using EntityFrameworkCoreExtensions.Query;
 
     /// <summary>
     /// A builder utility for applying service descriptors to a service collection.
@@ -50,6 +52,8 @@ namespace EntityFrameworkCoreExtensions
         public ExtensionsServicesBuilder AddMixins()
         {
             _services.AddScoped<IChangeDetectorHook, MixinChangeDetectorHook>();
+            _services.AddScoped<IQueryModelVisitorHook, MixinQueryModelVisitorHook>();
+            _services.AddScoped<IEntityMaterializerSourceHook, MixinEntityMaterializerSourceHook>();
 
             return this;
         }
