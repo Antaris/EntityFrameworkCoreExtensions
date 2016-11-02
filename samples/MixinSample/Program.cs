@@ -18,21 +18,33 @@ namespace MixinSample
     {
         public static void Main(string[] args)
         {
+            var assemblies = new[]
+            {
+                typeof(Program).GetTypeInfo().Assembly,
+                typeof(CatalogDbContext).GetTypeInfo().Assembly
+            };
+
             var services = new ServiceCollection();
             services
                 .AddEntityFrameworkInMemoryDatabase()
                 .AddDbContext<CatalogDbContext>(options => options.UseInMemoryDatabase())
                 .AddEntityFrameworkCoreExtensions(b => b
-                    .AddModelBuildersFromAssemblies(
-                        typeof(Program).GetTypeInfo().Assembly, 
-                        typeof(CatalogDbContext).GetTypeInfo().Assembly
-                    )
+                    .AddHooksFromAssemblies(assemblies)
+                    .AddModelBuildersFromAssemblies(assemblies)
                     .AddAutoModel()
                     .AddMixins()
                 );
             var provider = services.BuildServiceProvider();
 
             var context = provider.GetService<CatalogDbContext>();
+
+            var product = new Product()
+            {
+                Name = "Hello"
+            };
+
+            context.Products.Add(product);
+            context.SaveChanges();
         }
     }
 
