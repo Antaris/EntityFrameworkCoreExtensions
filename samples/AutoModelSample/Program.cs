@@ -18,10 +18,10 @@ namespace AutoModelSample
             var services = new ServiceCollection();
             services
                 .AddEntityFrameworkInMemoryDatabase()
-                .AddDbContext<CatalogDbContext>(options => options.UseInMemoryDatabase())
-                .AddEntityFrameworkCoreExtensions(b => b
-                    .AddModelBuildersFromAssemblies(typeof(Program).GetTypeInfo().Assembly)
+                .AddDbContext<CatalogDbContext>(options => options
+                    .UseInMemoryDatabase()
                     .AddAutoModel()
+                    .AddModelBuilders(typeof(Program).GetTypeInfo().Assembly)
                 );
             var provider = services.BuildServiceProvider();
 

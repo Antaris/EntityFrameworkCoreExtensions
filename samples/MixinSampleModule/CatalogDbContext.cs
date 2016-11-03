@@ -4,11 +4,11 @@ namespace MixinSampleModule
 {
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using EntityFrameworkCoreExtensions;
     using EntityFrameworkCoreExtensions.Builder;
     using EntityFrameworkCoreExtensions.Mixins;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     [AutoModel]
     public class CatalogDbContext : ExtendedDbContext

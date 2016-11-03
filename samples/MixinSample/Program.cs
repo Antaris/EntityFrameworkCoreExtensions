@@ -13,6 +13,7 @@ namespace MixinSample
     using EntityFrameworkCoreExtensions.Mixins;
 
     using MixinSampleModule;
+    using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
     public class Program
     {
@@ -27,12 +28,12 @@ namespace MixinSample
             var services = new ServiceCollection();
             services
                 .AddEntityFrameworkInMemoryDatabase()
-                .AddDbContext<CatalogDbContext>(options => options.UseInMemoryDatabase())
-                .AddEntityFrameworkCoreExtensions(b => b
-                    .AddHooksFromAssemblies(assemblies)
-                    .AddModelBuildersFromAssemblies(assemblies)
+                .AddDbContext<CatalogDbContext>(options => options
+                    .UseInMemoryDatabase()
                     .AddAutoModel()
+                    .AddModelBuilders(assemblies)
                     .AddMixins()
+                    .AddHooks(assemblies)
                 );
             var provider = services.BuildServiceProvider();
 
