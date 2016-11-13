@@ -10,23 +10,17 @@ namespace EntityFrameworkCoreExtensions.Tests
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.Extensions.DependencyInjection;
     using Xunit;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
 
     /// <summary>
     /// Provides tests for the <see cref="ExtendedDbContext"/> type.
     /// </summary>
     public class ExtendedDbContextTests
     {
-        [Fact]
-        public void Constructor_ValidatesParameters()
+        public ExtendedDbContextTests()
         {
-            // Arrange
-            var hooks = new IDbContextHook[0];
-
-            // Act
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => new ExtendedDbContext(null /* hooks */, null /* options */));
-            Assert.Throws<ArgumentNullException>(() => new ExtendedDbContext(hooks, null /* options */));
+            // MA - We need to clear the cached service providers, as these are stored via a hash of the extension types.
+            TestHelpers.ClearServiceProviderCache();
         }
 
         [Fact]
@@ -42,9 +36,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             // MA - Services are lazily initiated so we need to perform an operation to set them.
@@ -68,11 +62,11 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
 
             // Act
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
             
             // Assert
             Assert.Equal(typeof(TestExtendedDbContext), untypedHook.DbContextType);
@@ -92,9 +86,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             // MA - Services are lazily initiated so we need to perform an operation to set them.
@@ -120,9 +114,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { };
@@ -146,9 +140,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { Id = 1 };
@@ -172,9 +166,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { };
@@ -198,9 +192,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { };
@@ -224,9 +218,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { Id = 1 };
@@ -250,9 +244,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { };
@@ -277,9 +271,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { };
@@ -304,9 +298,9 @@ namespace EntityFrameworkCoreExtensions.Tests
             var serviceProvider = services.BuildServiceProvider();
             var options = new DbContextOptionsBuilder<ExtendedDbContext>()
                 .UseInMemoryDatabase()
-                .UseInternalServiceProvider(serviceProvider)
+                .AddExtension<TestHooksDbContextExtension>(new TestHooksDbContextExtension(hooks))
                 .Options;
-            var context = new TestExtendedDbContext(hooks, options);
+            var context = new TestExtendedDbContext(options);
 
             // Act
             var product = new Product { Id = 1 };
@@ -525,7 +519,7 @@ namespace EntityFrameworkCoreExtensions.Tests
 
         private class TestExtendedDbContext : ExtendedDbContext
         {
-            public TestExtendedDbContext(IEnumerable<IDbContextHook> hooks, DbContextOptions options) : base(hooks, options)
+            public TestExtendedDbContext(DbContextOptions options) : base(options)
             {
             }
 
@@ -539,8 +533,29 @@ namespace EntityFrameworkCoreExtensions.Tests
 
         private class OtherTestExtendedDbContext : ExtendedDbContext
         {
-            public OtherTestExtendedDbContext(IEnumerable<IDbContextHook> hooks, DbContextOptions options) : base(hooks, options)
+            public OtherTestExtendedDbContext(DbContextOptions options) : base(options)
             {
+            }
+        }
+
+        private class TestHooksDbContextExtension : DbContextOptionsExtensionBase
+        {
+            private List<IDbContextHook> _hooks = new List<IDbContextHook>();
+
+            public TestHooksDbContextExtension(params IDbContextHook[] hooks)
+            {
+                _hooks.AddRange(hooks);
+            }
+
+            public void AddHook(IDbContextHook hook)
+                => _hooks.Add(hook);
+
+            public override void ApplyServicesCore(IServiceCollection services)
+            {
+                foreach (var hook in _hooks)
+                {
+                    services.AddScoped(typeof(IDbContextHook), sp => hook);
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ namespace EntityFrameworkCoreExtensions.Tests.Mixins
 
         private class CatalogDbContext : ExtendedDbContext
         {
-            public CatalogDbContext(IEnumerable<IDbContextHook> hooks, DbContextOptions options) : base(hooks, options)
+            public CatalogDbContext(DbContextOptions options) : base(options)
             {
             }
 

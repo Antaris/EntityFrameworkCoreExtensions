@@ -61,10 +61,6 @@ namespace AutoModelSample
     [AutoModel]
     public class CatalogDbContext : ExtendedDbContext
     {
-        public CatalogDbContext(IEnumerable<IDbContextHook> hooks, DbContextOptions options) : base(hooks, options)
-        {
-        }
-
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductVariant> Variants { get; set; }

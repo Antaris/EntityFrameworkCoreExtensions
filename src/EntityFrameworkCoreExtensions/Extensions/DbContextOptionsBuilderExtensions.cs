@@ -79,6 +79,23 @@ namespace EntityFrameworkCoreExtensions
             return builder;
         }
 
+        /// <summary>
+        /// Adds a custom extension to the options.
+        /// </summary>
+        /// <typeparam name="T">The extensions type.</typeparam>
+        /// <param name="builder">The options builder.</param>
+        /// <param name="extension">The extension instance.</param>
+        /// <returns>The options builder.</returns>
+        public static DbContextOptionsBuilder AddExtension<T>(this DbContextOptionsBuilder builder, T extension)
+            where T : class, IDbContextOptionsExtension
+        {
+            Ensure.NotNull(extension, nameof(extension));
+
+            AddOrUpdateExtension<T>(builder, extension);
+
+            return builder;
+        }
+
         private static void AddOrUpdateExtension<T>(DbContextOptionsBuilder builder, T extension)
             where T : class, IDbContextOptionsExtension
             => ((IDbContextOptionsBuilderInfrastructure)builder).AddOrUpdateExtension(extension);

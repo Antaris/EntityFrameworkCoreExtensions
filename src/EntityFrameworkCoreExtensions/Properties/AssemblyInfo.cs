@@ -17,3 +17,6 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("04f3ac4f-e3fd-41c2-84e3-dc934dc276ea")]
+
+[assembly: InternalsVisibleTo("EntityFrameworkCoreExtensions.Tests")]
+[assembly: InternalsVisibleTo("EntityFrameworkCoreExtensions.SqlServer.Tests")]
