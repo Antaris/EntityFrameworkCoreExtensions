@@ -26,13 +26,6 @@ namespace EntityFrameworkCoreExtensions
         /// <summary>
         /// Initialises a new instance of <see cref="ExtendedDbContext"/>
         /// </summary>
-        public ExtendedDbContext()
-            : this(new DbContextOptions<ExtendedDbContext>())
-        { }
-
-        /// <summary>
-        /// Initialises a new instance of <see cref="ExtendedDbContext"/>
-        /// </summary>
         /// <param name="options">The database context options.</param>
         public ExtendedDbContext(DbContextOptions options)
             : base(options)
