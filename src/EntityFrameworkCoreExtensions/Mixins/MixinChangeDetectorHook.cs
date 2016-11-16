@@ -54,7 +54,7 @@ namespace EntityFrameworkCoreExtensions.Mixins
                     // MA - Mixin is not null, so compare values to the current values.
                     foreach (var property in properties)
                     {
-                        string propertyName = property.Name.Substring(prefix.Length + 1);
+                        string propertyName = property.Name.Substring(prefix.Length);
 
                         // MA - Get the property info.
                         var propertyInfo = mixinTypeInfo.GetDeclaredProperty(propertyName);
@@ -73,7 +73,7 @@ namespace EntityFrameworkCoreExtensions.Mixins
 
         private IEnumerable<Type> GetMixinTypes(IEntityType entityType)
         {
-            foreach (var annotation in entityType.Model.GetAnnotations().Where(a => a.Name.StartsWith("mixin-", StringComparison.Ordinal)))
+            foreach (var annotation in entityType.GetAnnotations().Where(a => a.Name.StartsWith("mixin-", StringComparison.Ordinal)))
             {
                 // MA - The mixin type is stored in the annotation.
                 yield return (Type)annotation.Value;

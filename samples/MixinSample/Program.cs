@@ -2,18 +2,15 @@
 
 namespace MixinSample
 {
+    using System.Linq;
     using System.Reflection;
-    using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Microsoft.Extensions.DependencyInjection;
 
     using EntityFrameworkCoreExtensions;
     using EntityFrameworkCoreExtensions.Builder;
-    using EntityFrameworkCoreExtensions.Mixins;
 
     using MixinSampleModule;
-    using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
     public class Program
     {
@@ -43,9 +40,16 @@ namespace MixinSample
             {
                 Name = "Hello"
             };
+            product.SetMixin(new Option()
+            {
+                Value = "World"
+            });
 
             context.Products.Add(product);
             context.SaveChanges();
+
+            var product2 = context.Products.SingleOrDefault(p => p.Name == "Hello");
+            var option2 = product2.Mixin<Option>();
         }
     }
 

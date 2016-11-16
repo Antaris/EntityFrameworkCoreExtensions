@@ -3,10 +3,9 @@
 namespace EntityFrameworkCoreExtensions.Builder
 {
     using System;
+    using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.EntityFrameworkCore.Metadata.Internal;
-    using Microsoft.EntityFrameworkCore.Infrastructure;
 
     /// <summary>
     /// Provides a base implementation of an entity type builder.
@@ -26,9 +25,11 @@ namespace EntityFrameworkCoreExtensions.Builder
         {
             Ensure.NotNull(builder, nameof(builder));
 
-            var infrastrcture = (IInfrastructure<InternalModelBuilder>)builder;
+            // MA - Create the entity type builder.
+            var entityBuilder = builder.Entity<TEntity>();
 
-            BuildEntity(builder.Entity<TEntity>());
+            // MA - Build the entity properties.
+            BuildEntity(entityBuilder);
         }
 
         /// <inheritdoc />

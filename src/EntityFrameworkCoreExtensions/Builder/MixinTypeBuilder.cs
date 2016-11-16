@@ -36,10 +36,15 @@ namespace EntityFrameworkCoreExtensions.Builder
         {
             Ensure.NotNull(propertyExpression, nameof(propertyExpression));
 
+            var mixinType = typeof(TMixin);
+
             // MA - Get the property name.
             var name = propertyExpression.GetPropertyAccess().Name;
             // MA - Define the shadow property name.
-            string shadowPropertyName = $"{typeof(TMixin).GetMixinPrefix()}_{name}";
+            string shadowPropertyName = $"{mixinType.GetMixinPrefix()}_{name}";
+
+            // MA - Add the annotation.
+            _entityTypeBuilder.Metadata.AddAnnotation($"mixin-{mixinType}", mixinType);
 
             // MA - Create and return a property builder from the parent entity type builder.
             return _entityTypeBuilder.Property<TProperty>(shadowPropertyName);

@@ -88,7 +88,7 @@ namespace EntityFrameworkCoreExtensions.Mixins
             for (int i = 0; i < properties.Length; i++)
             {
                 var property = properties[i];
-                string propertyName = property.Name.Substring(prefix.Length + 1);
+                string propertyName = property.Name.Substring(prefix.Length);
                 var member = mixinType.GetRuntimeProperty(propertyName);
                 int index = property.GetIndex();
 
