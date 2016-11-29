@@ -10,6 +10,8 @@ namespace AutoModelSample
 
     using EntityFrameworkCoreExtensions;
     using EntityFrameworkCoreExtensions.Builder;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
+    using System;
 
     public class Program
     {
@@ -17,9 +19,9 @@ namespace AutoModelSample
         {
             var services = new ServiceCollection();
             services
-                .AddEntityFrameworkInMemoryDatabase()
+                .AddEntityFrameworkSqlServer()
                 .AddDbContext<CatalogDbContext>(options => options
-                    .UseInMemoryDatabase()
+                    .UseSqlServer(@"SERVER=(localdb)\MSSQLLocalDb;Database=AutoModel;Integrated Security=true;")
                     .AddAutoModel()
                     .AddModelBuilders(typeof(Program).GetTypeInfo().Assembly)
                 );
@@ -56,6 +58,24 @@ namespace AutoModelSample
         public int ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+    }
+
+    public class CatalogDbContextFactory : IDbContextFactory<CatalogDbContext>
+    {
+        public CatalogDbContext Create(DbContextFactoryOptions opts)
+        {
+            var services = new ServiceCollection();
+            services
+                .AddEntityFrameworkSqlServer()
+                .AddDbContext<CatalogDbContext>(options => options
+                    .UseSqlServer(@"SERVER=(localdb)\MSSQLLocalDb;Database=AutoModel;Integrated Security=true;")
+                    .AddAutoModel()
+                    .AddModelBuilders(typeof(Program).GetTypeInfo().Assembly)
+                );
+            var provider = services.BuildServiceProvider();
+
+            return provider.GetService<CatalogDbContext>();
+        }
     }
 
     [AutoModel]

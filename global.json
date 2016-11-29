@@ -1,3 +1,6 @@
 {
-    "projects": ["src", "test", "E:\\kraken\\EntityFramework\\src"]
+    "projects": ["src", "test", "E:\\kraken\\EntityFramework\\src"],
+    "sdk": {
+      "version": "1.0.0-preview2-003121" 
+    }
 }

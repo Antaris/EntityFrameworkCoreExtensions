@@ -4,6 +4,7 @@ namespace EntityFrameworkCoreExtensions.Builder
 {
     using System;
     using System.Linq.Expressions;
+    using System.Reflection;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Microsoft.EntityFrameworkCore.Internal;
 
@@ -44,7 +45,7 @@ namespace EntityFrameworkCoreExtensions.Builder
             string shadowPropertyName = $"{mixinType.GetMixinPrefix()}_{name}";
 
             // MA - Add the annotation.
-            _entityTypeBuilder.Metadata.AddAnnotation($"mixin-{mixinType}", mixinType);
+            _entityTypeBuilder.Metadata.AddAnnotation($"mixin-{mixinType}", $"{mixinType.FullName}, {mixinType.GetTypeInfo().Assembly.GetName().Name}");
 
             // MA - Create and return a property builder from the parent entity type builder.
             return _entityTypeBuilder.Property<TProperty>(shadowPropertyName);

@@ -126,7 +126,8 @@ namespace EntityFrameworkCoreExtensions.Mixins
         {
             foreach (var annotation in entityType.GetAnnotations().Where(a => a.Name.StartsWith("mixin-", StringComparison.Ordinal)))
             {
-                yield return (Type)annotation.Value;
+                //yield return (Type)annotation.Value;
+                yield return Type.GetType((string)annotation.Value);
             }
         }
     }
